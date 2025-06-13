@@ -1,0 +1,100 @@
+<!-- quiz.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Personality Quiz</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      text-align: center;
+      padding: 40px;
+    }
+    h1 { color: #ff4d88; }
+    .question { margin-bottom: 20px; }
+    button {
+      padding: 10px 20px;
+      background: #ff4d88;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Discover Your Inner Vibe ✨</h1>
+  <form id="quizForm">
+    <input type="text" name="name" placeholder="Enter your name" required><br><br>
+
+    <div class="question">
+      <p>1. Pick a weekend plan:</p>
+      <label><input type="radio" name="q1" value="1"> Read a book</label><br>
+      <label><input type="radio" name="q1" value="2"> Hang with friends</label><br>
+      <label><input type="radio" name="q1" value="3"> Party!</label>
+    </div>
+
+    <div class="question">
+      <p>2. Your style is...</p>
+      <label><input type="radio" name="q2" value="1"> Cozy & soft</label><br>
+      <label><input type="radio" name="q2" value="2"> Comfy casual</label><br>
+      <label><input type="radio" name="q2" value="3"> Bold & classy</label>
+    </div>
+
+    <!-- Add Q3, Q4, Q5 similarly -->
+    
+    <div class="question">
+      <p>3. Ideal vacation?</p>
+      <label><input type="radio" name="q3" value="1"> Countryside</label><br>
+      <label><input type="radio" name="q3" value="2"> Beach</label><br>
+      <label><input type="radio" name="q3" value="3"> City lights</label>
+    </div>
+
+    <div class="question">
+      <p>4. Favorite hobby?</p>
+      <label><input type="radio" name="q4" value="1"> Journaling</label><br>
+      <label><input type="radio" name="q4" value="2"> Music</label><br>
+      <label><input type="radio" name="q4" value="3"> Leading events</label>
+    </div>
+
+    <div class="question">
+      <p>5. Pick a color:</p>
+      <label><input type="radio" name="q5" value="1"> Pastel pink</label><br>
+      <label><input type="radio" name="q5" value="2"> Sky blue</label><br>
+      <label><input type="radio" name="q5" value="3"> Jet black</label>
+    </div>
+
+    <br>
+    <button type="submit">Reveal My Vibe!</button>
+  </form>
+
+  <script>
+    document.getElementById("quizForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = this.name.value;
+      const scores = [this.q1.value, this.q2.value, this.q3.value, this.q4.value, this.q5.value].map(Number);
+      const total = scores.reduce((a, b) => a + b, 0);
+      let result = "";
+
+      if (total <= 7) result = "Soft Girl 🌸";
+      else if (total <= 11) result = "Chill Vibe 🕶";
+      else result = "Main Character Energy ✨";
+
+      const data = {
+        name,
+        q1: scores[0], q2: scores[1], q3: scores[2],
+        q4: scores[3], q5: scores[4],
+        result
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbzXB6tA7HIMV51S-nNlhECgYKrrOcKwMZNOmyRImxmmtEjNvtbF58f_ey1PvCDdDuunRQ/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+      }).then(() => {
+        localStorage.setItem("quizResult", result);
+        window.location.href = "result.html";
+      });
+    });
+  </script>
+</body>
+</html>

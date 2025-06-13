@@ -1,0 +1,28 @@
+<!-- result.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Vibe!</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      background: #ffe6f0;
+      text-align: center;
+      font-family: cursive;
+      padding: 50px;
+    }
+    h1 { color: #ff3399; font-size: 3em; }
+    p { font-size: 1.5em; }
+  </style>
+</head>
+<body>
+  <h1 id="vibe">Loading...</h1>
+  <p>You totally radiate this energy ✨</p>
+
+  <script>
+    const result = localStorage.getItem("quizResult");
+    document.getElementById("vibe").innerText = result;
+    confetti();
+  </script>
+</body>
+</html>
